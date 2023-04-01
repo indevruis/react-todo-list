@@ -20,7 +20,7 @@ function TodoContainer() {
     setTodoList(copyTodoList);
   };
   const handleClickDeleteButton = (deleteIndex) => () => {
-    const deletedList = todoList.filter((todo, index) => deleteIndex !== index);
+    const deletedList = todoList.filter((_, index) => deleteIndex !== index);
     setTodoList(deletedList);
   };
   const handleChangeInputValue = (e) => {
@@ -29,10 +29,10 @@ function TodoContainer() {
   const handleSaveTodo = () => {
     const copyTodoList = [...todoList];
     copyTodoList.push({ todo: newTodo, check: false });
-    debugger
     setTodoList(copyTodoList);
   };
-  const handleClickAddButton = () => {
+  const handleClickAddButton = (e) => {
+    e.preventDefault();
     handleSaveTodo();
   };
   return (

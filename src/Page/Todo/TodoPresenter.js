@@ -20,8 +20,6 @@ const TodoPresenter = ({
           index={index}
           onClickLikeButton={onClickLikeButton}
           onClickDeleteButton={onClickDeleteButton}
-          onClickAddButton={onClickAddButton}
-          onChangeInputValue={onChangeInputValue}
         />
       ))}
       <form className="addList">  
