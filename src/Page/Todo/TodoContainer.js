@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import TodoPresenter from './TodoPresenter'
+import React, { useState } from "react";
+import TodoPresenter from "./TodoPresenter";
 
 function TodoContainer() {
   const [todoList, setTodoList] = useState([
@@ -12,22 +12,38 @@ function TodoContainer() {
       check: true,
     },
   ]);
+  const [newTodo, setNewTodo] = useState("");
+
   const handleClickLikeButton = (index) => () => {
-    let copyTodoList = [...todoList]
+    const copyTodoList = [...todoList];
     copyTodoList[index].check = !copyTodoList[index].check;
-    setTodoList(copyTodoList);            
-  }
-  const handleClickDeleteButton = (deleteIndex)=> () => {
-    const deletedList = todoList.filter((todo,index)=>deleteIndex !== index)
-    setTodoList(deletedList)
-  }
+    setTodoList(copyTodoList);
+  };
+  const handleClickDeleteButton = (deleteIndex) => () => {
+    const deletedList = todoList.filter((todo, index) => deleteIndex !== index);
+    setTodoList(deletedList);
+  };
+  const handleChangeInputValue = (e) => {
+    setNewTodo(e.target.value);
+  };
+  const handleSaveTodo = () => {
+    const copyTodoList = [...todoList];
+    copyTodoList.push({ todo: newTodo, check: false });
+    debugger
+    setTodoList(copyTodoList);
+  };
+  const handleClickAddButton = () => {
+    handleSaveTodo();
+  };
   return (
-    <TodoPresenter 
+    <TodoPresenter
       todoList={todoList}
       onClickLikeButton={handleClickLikeButton}
       onClickDeleteButton={handleClickDeleteButton}
+      onChangeInputValue={handleChangeInputValue}
+      onClickAddButton={handleClickAddButton}
     />
-  )
+  );
 }
 
-export default TodoContainer
+export default TodoContainer;
