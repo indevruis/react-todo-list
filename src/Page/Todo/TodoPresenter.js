@@ -1,18 +1,23 @@
 import React from 'react';
-import Today from '../../Component/Today';
-import Lists from '../../Component/Lists'
+import Today from './Component/Today';
+import List from './Component/List'
 
 const TodoPresenter = ({
-  todoLists,
-  setTodoLists
+  todoList,
+  onClickLikeButton,
+  onClickDeleteButton
 }) => {
   return (
     <div className='todoList'>
         <div className='header'>To Do List</div>
         <Today />
-        {todoLists.map((list, i)=>(
-          <Lists
+        {todoList.map((list, index)=>(
+          <List
             list={list}
+            key={index}
+            index={index}
+            onClickLikeButton={onClickLikeButton}
+            onClickDeleteButton={onClickDeleteButton}
           />
         ))
       }
