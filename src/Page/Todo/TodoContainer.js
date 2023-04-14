@@ -1,22 +1,23 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import TodoPresenter from "./TodoPresenter";
 
 function TodoContainer() {
-  const [todoList, setTodoList] = useState([
-    {
-      todo: "리액트로 투두리스트 수정",
-      check: false,
-    },
-    {
-      todo: "리액트 part1 끝내기",
-      check: true,
-    },
-  ]);
+  const [todoList, setTodoList] = useState([]);
   const [newTodo, setNewTodo] = useState("");
+
+  useEffect(() => {
+    getTodoList()
+  }, []);
+  
+  const getTodoList = () => {
+    fetch('/TodoList').then(res=>res.json()).then(res=>{
+      setTodoList(res)
+    })
+}
 
   const handleClickLikeButton = (index) => () => {
     const copyTodoList = [...todoList];
-    copyTodoList[index].check = !copyTodoList[index].check;
+    copyTodoList[index].like = !copyTodoList[index].like;
     setTodoList(copyTodoList);
   };
   const handleClickDeleteButton = (deleteIndex) => () => {
@@ -28,7 +29,14 @@ function TodoContainer() {
   };
   const handleSaveTodo = () => {
     const copyTodoList = [...todoList];
-    copyTodoList.push({ todo: newTodo, check: false });
+    copyTodoList.push({ todo: newTodo, like: false });
+    fetch('/TodoList',{
+      method:'POST',
+      body:JSON.stringify({ todo: newTodo , isChecked:false}),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
     setTodoList(copyTodoList);
   };
   const handleClickAddButton = (e) => {

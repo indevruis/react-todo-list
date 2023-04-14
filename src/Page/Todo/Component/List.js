@@ -5,7 +5,7 @@ const List = ({list,index, onClickLikeButton, onClickDeleteButton}) => {
     <div className="list">
           <div>
             <span onClick={onClickLikeButton(index)}>
-              {list.check ? "❤️" : "🤍"}
+              {list.like ? "❤️" : "🤍"}
             </span>
             <span>{list.todo}</span>
             <span className="deleteButton" onClick={onClickDeleteButton(index)}>❌</span>
